@@ -418,6 +418,39 @@ if (
                 }
                 break;
             }
+        case 'editBarangMasuk': {
+
+                $kode_barang = freeInput($database, $_POST['data']['kode_barang']);
+                $jumlah = freeInput($database, $_POST['data']['jumlah']);
+
+                $tanggal = date("Y-m-d");
+                // $_SESSION
+                $id = $_SESSION['admin'];
+                // var_dump($kode_barang);die;
+                // $sql = "SELECT no_rak FROM tb_rak WHERE nama_rak='$nama_rak'";
+
+                // // var_dump($_POST);die;
+                // $data  = $database->query($sql)->num_rows;
+                // var_dump($data);die;
+
+                if ($kode_barang == '') {
+                    $msg = "Nama Barang Harap  Di Pilih!";
+                } else {
+                    $sql = "INSERT INTO tb_barang_masuk(kode_barang_masuk, tanggal_masuk,kode_barang,jumlah_masuk,kode_user) VALUES(NULL, '$$tanggal','$kode_barang','$jumlah','$id')";
+                    // var_dump($sql);die;  
+                    if ($database->query($sql)) {
+                        $sql2 = "update tb_barang set stok = stok + '$jumlah' where kode_barang = '$kode_barang' ";
+                        $database->query($sql2);
+
+
+                        $error = false;
+                        $msg = "Berhasil menambahkan Barang Masuk: ";
+                    } else {
+                        $msg = "Terjadi Kesalahan. #AJX06A <br>" . $database->error;
+                    }
+                }
+                break;
+            }
 
 
 

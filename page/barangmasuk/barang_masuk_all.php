@@ -108,7 +108,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalEditMitraTitle">Edit Barang</h5>
+                    <h5 class="modal-title" id="modalEditMitraTitle">Edit Barang Masuk</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -116,53 +116,20 @@
                 <div class="modal-body">
                     <form id="formEditBarang">
                         <div class="form-group">
-                            <label for="inputEditBarang">Nama Barang <small class="text-danger"></small></label>
-                            <input type="text" class="form-control" id="inputEditNamaBarang" placeholder="Nama Mitra..">
-                            <input type="hidden" class="form-control" id="inputKodeBarang">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-body">
-                    <form id="formTambahMitra">
-                        <div class="form-group">
-                            <label for="inputEditJenisBarang">Jenis Barang <small class="text-danger"></small></label>
-                            <input type="text" class="form-control" id="inputEditJenisBarang" placeholder="Jenis Barang">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-body">
-                    <form id="formTambahMitra">
-                        <div class="form-group">
-                            <label for="inputEditSpesifikasi">Spesifikasi <small class="text-danger"></small></label>
-                            <input type="text" class="form-control" id="inputEditSpesifikasi" placeholder="Spesifikasi Barang">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-body">
-                    <form id="formTambahMitra">
-                        <div class="form-group">
-                            <label for="inputEditStok">Stok <small class="text-danger"></small></label>
-                            <input type="text" class="form-control" id="inputEditStok" placeholder="Stok Barang">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-body">
-                    <form id="formTambahMitra">
-                        <div class="form-group">
-                            <label for="EditSatuan">Satuan <small class="text-danger"></small></label>
-                            <select class="form-control" id="editSatuan">
-                                <option value="default">Pilih Satuan</option>
+                            <label for="inputNamaBarang">Nama Barang Masuk <small class="text-danger"></small></label>
+                            <select class="form-control" id="nama_barang_masuk">
+                                <option value="default">Pilih Nama Barang</option>
                                 <?php
                                 // ini_set('display_errors', 1);
                                 // ini_set('display_startup_errors', 1);
                                 // error_reporting(E_ALL);
-                                $sql0 = "SELECT *FROM tb_satuan";
+                                $sql0 = "SELECT *FROM tb_barang";
                                 $sql = $koneksi->query($sql0);
                                 // $data = $database1->query($sql);
                                 // var_dump($data);
                                 while ($row = $sql->fetch_array()) {
                                     echo '
-                                  <option value="' . $row['id_satuan'] . '" >' . $row['nama_satuan'] . '</option>
+                                  <option value="' . $row['kode_barang'] . '" >' . $row['nama_barang'] . '</option>
                                   ';
                                 }
                                 ?>
@@ -173,30 +140,17 @@
                 <div class="modal-body">
                     <form id="formTambahMitra">
                         <div class="form-group">
-                            <label for="EditRak">Rak <small class="text-danger"></small></label>
-                            <select class="form-control" id="editRak">
-                                <option value="default">Pilih Rak</option>
-                                <?php
-                                // ini_set('display_errors', 1);
-                                // ini_set('display_startup_errors', 1);
-                                // error_reporting(E_ALL);
-                                $sql0 = "SELECT *FROM tb_rak";
-                                $sql = $koneksi->query($sql0);
-                                // $data = $database1->query($sql);
-                                // var_dump($data);
-                                while ($row = $sql->fetch_array()) {
-                                    echo '
-                                  <option value="' . $row['no_rak'] . '" >' . $row['nama_rak'] . '</option>
-                                  ';
-                                }
-                                ?>
-                            </select>
+                            <label for="inputEditJumlah">Jumlah <small class="text-danger"></small></label>
+                            <input type="number" class="form-control" id="inputEditJumlah" placeholder="Jumlah">
+                        </div>
+                        <div class="form-group"></small></label>
+                            <input type="hidden" class="form-control" id="KodeBarangMasuk">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-success" id="editMitra"><i class="glyphicon glyphicon-pencil"></i> Edit User</button>
+                    <button type="button" class="btn btn-success" id="editMitra"><i class="glyphicon glyphicon-pencil"></i> Edit Barang Masuk</button>
                 </div>
             </div>
         </div>
@@ -219,249 +173,235 @@
 
 
         $(document).ready(function() {
-                    setTimeout(() => {
-                        initSideBar();
-                    }, 1000);
+            setTimeout(() => {
+                initSideBar();
+            }, 1000);
 
-                    // Datatables
-                    var dataTable = $('#table').DataTable({
-                        "processing": true,
-                        "serverSide": true,
-                        "columnDefs": [{
-                                "targets": 0,
-                                "className": "dt-body-center dt-head-center",
-                                "orderable": false,
-                                "width": "50px"
-                            },
-                            {
-                                "targets": 1,
-                                "className": "dt-body-center dt-head-center"
-                            },
-                            {
-                                "targets": 2,
-                                "className": "dt-body-center dt-head-center"
-                            },
-                            {
-                                "targets": 3,
-                                "className": "dt-body-center dt-head-center",
-                                "orderable": false
-                            }, {
-                                "targets": 4,
-                                "className": "dt-body-center dt-head-center",
-                                "orderable": false
-                            }, {
-                                "targets": 5,
-                                "className": "dt-body-center dt-head-center",
-                                "orderable": false
-                            }, {
-                                "targets": 6,
-                                "className": "dt-body-center dt-head-center",
-                                "orderable": false
-                            }, {
-                                "targets": 7,
-                                "className": "dt-body-center dt-head-center",
-                                "orderable": false
-                            },
-                            {
-                                "targets": 8,
-                                "className": "dt-body-center dt-head-center",
-                                "orderable": false
-                            },
-                        ],
-                        "order": [
-                            [1, "asc"]
-                        ],
-                        "ajax": {
-                            "url": "page/ajax/load_barang_masuk.php",
-                            "type": "POST",
+            // Datatables
+            var dataTable = $('#table').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "columnDefs": [{
+                        "targets": 0,
+                        "className": "dt-body-center dt-head-center",
+                        "orderable": false,
+                        "width": "50px"
+                    },
+                    {
+                        "targets": 1,
+                        "className": "dt-body-center dt-head-center"
+                    },
+                    {
+                        "targets": 2,
+                        "className": "dt-body-center dt-head-center"
+                    },
+                    {
+                        "targets": 3,
+                        "className": "dt-body-center dt-head-center",
+                        "orderable": false
+                    }, {
+                        "targets": 4,
+                        "className": "dt-body-center dt-head-center",
+                        "orderable": false
+                    }, {
+                        "targets": 5,
+                        "className": "dt-body-center dt-head-center",
+                        "orderable": false
+                    }, {
+                        "targets": 6,
+                        "className": "dt-body-center dt-head-center",
+                        "orderable": false
+                    }, {
+                        "targets": 7,
+                        "className": "dt-body-center dt-head-center",
+                        "orderable": false
+                    },
+                    {
+                        "targets": 8,
+                        "className": "dt-body-center dt-head-center",
+                        "orderable": false
+                    },
+                ],
+                "order": [
+                    [1, "asc"]
+                ],
+                "ajax": {
+                    "url": "page/ajax/load_barang_masuk.php",
+                    "type": "POST",
+                }
+            });
+
+            // Button Tambah Mitra
+            $('#tambahMitra').on('click', function() {
+
+                console.log("tes");
+                $('small.text-danger').html('');
+                var kode_barang = $('#nama_barang  option:selected').val();
+                // console.log(kode_barang);
+                // return (false);
+                var jumlah = $('#jumlah').val();
+
+                if (kode_barang == 'default') {
+                    $('*[for="inputNamaBarang"] > small').html('Harap diisi!');
+                } else if (jumlah == '') {
+                    $('*[for="inputJumlah"] > small').html('Harap diisi!');
+                } else {
+
+                    $.ajax({
+                        url: 'page/ajax/ajax.php',
+                        dataType: 'json',
+                        method: 'POST',
+                        data: {
+                            aksi: 'tambahBarangMasuk',
+                            data: {
+                                kode_barang: kode_barang,
+                                jumlah: jumlah,
+                            }
                         }
+                    }).done(function(e) {
+                        console.log('berhasil');
+                        console.log(e);
+                        $('#nama_barang').val('');
+                        $('#jumlah').val('');
+                        $('#modalTambahMitra').modal('hide'); //$('body').removeClass('modal-open');$('.modal-backdrop').remove();
+                        var alert = '';
+                        if (!e.output.error) {
+                            alert = 'alert-success';
+                        } else {
+                            alert = 'alert-danger';
+                        }
+                        $('#alertNotif').html('<div class="alert ' + alert + ' alert-dismissible show" role="alert"><span>' + e.output.message + '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        dataTable.ajax.reload();
+
+                    }).fail(function(e) {
+                        console.log('gagal');
+                        console.log(e);
+                        var message = 'Terjadi Kesalahan. #JSMTR01';
+                        $('#alertNotif').html('<div class="alert alert-danger alert-dismissible show" role="alert"><span>' + message + '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    }).always(function() {
+                        console.log('selesai');
                     });
+                }
+                // return false;
+            });
 
-                    // Button Tambah Mitra
-                    $('#tambahMitra').on('click', function() {
+            $('#modalTambahMitra, #modalEditMitra').on('hidden.bs.modal', function(e) {
+                $('small.text-danger').html('');
+                console.log('tutup');
+            });
 
-                            console.log("tes");
-                            $('small.text-danger').html('');
-                            var kode_barang = $('#nama_barang  option:selected'
-                                ).val();
-                                // console.log(kode_barang);
-                                // return (false);
-                                var jumlah = $('#jumlah').val();
+            // Button Edit
+            $('body').on('click', '.tombolEdit', function() {
 
-                                if (kode_barang == 'default') {
-                                    $('*[for="inputNamaBarang"] > small').html('Harap diisi!');
-                                } else if (jumlah == '') {
-                                    $('*[for="inputJumlah"] > small').html('Harap diisi!');
-                                } else {
-
-                                    $.ajax({
-                                        url: 'page/ajax/ajax.php',
-                                        dataType: 'json',
-                                        method: 'POST',
-                                        data: {
-                                            aksi: 'tambahBarangMasuk',
-                                            data: {
-                                                kode_barang: kode_barang,
-                                                jumlah: jumlah,
-                                            }
-                                        }
-                                    }).done(function(e) {
-                                        console.log('berhasil');
-                                        console.log(e);
-                                        $('#nama_barang').val('');
-                                        $('#jumlah').val('');
-                                        $('#modalTambahMitra').modal('hide'); //$('body').removeClass('modal-open');$('.modal-backdrop').remove();
-                                        var alert = '';
-                                        if (!e.output.error) {
-                                            alert = 'alert-success';
-                                        } else {
-                                            alert = 'alert-danger';
-                                        }
-                                        $('#alertNotif').html('<div class="alert ' + alert + ' alert-dismissible show" role="alert"><span>' + e.output.message + '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                                        dataTable.ajax.reload();
-
-                                    }).fail(function(e) {
-                                        console.log('gagal');
-                                        console.log(e);
-                                        var message = 'Terjadi Kesalahan. #JSMTR01';
-                                        $('#alertNotif').html('<div class="alert alert-danger alert-dismissible show" role="alert"><span>' + message + '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                                    }).always(function() {
-                                        console.log('selesai');
-                                    });
-                                }
-                                // return false;
-                            });
-
-                        $('#modalTambahMitra, #modalEditMitra').on('hidden.bs.modal', function(e) {
-                            $('small.text-danger').html('');
-                            console.log('tutup');
-                        });
-
-                        // Button Edit
-                        $('body').on('click', '.tombolEdit', function() {
-
-                            var kode_barang = $(this).data('kode_barang');
-                            var nama_barang = $(this).data('nama_barang');
-                            var jenis_barang = $(this).data('jenis_barang');
-                            var spesifikasi = $(this).data('spesifikasi');
-                            var satuan = $(this).data('satuan');
-                            var rak = $(this).data('rak');
-                            var stok = $(this).data('stok');
-                            console.log(kode_barang);
-                            $('#inputEditNamaBarang').val(nama_barang);
-                            $('#inputEditJenisBarang').val(jenis_barang);
-                            $('#inputEditSpesifikasi').val(spesifikasi);
-                            $('#editSatuan').val(satuan);
-                            $('#editRak').val(rak);
-                            $('#inputKodeBarang').val(kode_barang);
-                            $('#inputEditStok').val(stok);
-                            $('#modalEditMitra').modal('show');
-                            return false;
-                        });
+                var kode_barang_masuk = $(this).data('kode_barang_masuk');
+                var nama_barang = $(this).data('nama_barang_masuk');
+                var jumlah_masuk = $(this).data('jumlah_masuk');
+                var kode_barang = $(this).data('kode_barang');
+                console.log(kode_barang);
+                // return (false);
+                $('#nama_barang_masuk').val(kode_barang);
+                $('#inputEditJumlah').val(jumlah_masuk);
+                $('#KodeBarangMasuk').val(kode_barang_masuk);
+                // $('#inputEditStok').val(stok);
+                $('#modalEditMitra').modal('show');
+                return false;
+            });
 
 
-                        // Button Edit Mitra
-                        $('#editMitra').on('click', function() {
-                            var kode_barang = $('#inputKodeBarang').val();
-                            var nama_barang = $('#inputEditNamaBarang').val();
-                            var jenis_barang = $('#inputEditJenisBarang').val();
-                            var spesifikasi = $('#inputEditSpesifikasi').val();
-                            var satuan = $('#editSatuan').val();
-                            var rak = $('#editRak').val();
-                            var stok = $('#inputEditStok').val();
+            // Button Edit Mitra
+            $('#editMitra').on('click', function() {
+                var kode_barang_masuk = $('#KodeBarangMasuk').val();
+                var nama_barang = $('#nama_barang_masuk').val();
+                var jumlah_masuk = $('#inputEditJumlah').val();
 
-                            // console.log(kode_barang);
-                            // return (false);
-                            if (nama_barang == '') {
-                                $('*[for="inputEditBarang"] > small').html('Harap diisi!');
+                // console.log(jumlah_masuk);
+                // return (false);
+                if (jumlah_masuk == '') {
+                    $('*[for="inputEditBarang"] > small').html('Harap diisi!');
+                }
+                if (nama_barang == 'default') {
+                    $('*[for="EditSatuan"] > small').html('Harap dipilih!');
+                } else {
+                    $.ajax({
+                        url: 'page/ajax/ajax.php',
+                        dataType: 'json',
+                        method: 'POST',
+                        data: {
+                            aksi: 'editBarangMasuk',
+                            data: {
+                                kode_barang_masuk: kode_barang_masuk,
+                                nama_barang: nama_barang,
+                                jumlah_masuk: jumlah_masuk,
                             }
-                            if (satuan == 'default') {
-                                $('*[for="EditSatuan"] > small').html('Harap dipilih!');
-                            } else {
-                                $.ajax({
-                                    url: 'page/ajax/ajax.php',
-                                    dataType: 'json',
-                                    method: 'POST',
-                                    data: {
-                                        aksi: 'editBarang',
-                                        data: {
-                                            nama_barang: nama_barang,
-                                            kode_barang: kode_barang,
-                                            jenis_barang: jenis_barang,
-                                            spesifikasi: spesifikasi,
-                                            satuan: satuan,
-                                            rak: rak,
-                                            stok: stok,
-                                        }
-                                    }
-                                }).done(function(e) {
-                                    console.log('berhasil');
-                                    console.log(e);
-                                    var alert = '';
-                                    $('#inputEditMitra').val('');
-                                    $('#inputEditPassword').val('');
-                                    $('#EditLevel').val('');
-                                    $('#modalEditMitra').modal('hide');
-                                    if (!e.output.error) {
-                                        alert = 'alert-success';
-                                    } else {
-                                        alert = 'alert-danger';
-                                    }
-                                    $('#alertNotif').html('<div class="alert ' + alert + ' alert-dismissible show" role="alert"><span>' + e.output.message + '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                                    dataTable.ajax.reload();
+                        }
+                    }).done(function(e) {
+                        console.log('berhasil');
+                        console.log(e);
+                        var alert = '';
+                        $('#inputEditMitra').val('');
+                        $('#inputEditPassword').val('');
+                        $('#EditLevel').val('');
+                        $('#modalEditMitra').modal('hide');
+                        if (!e.output.error) {
+                            alert = 'alert-success';
+                        } else {
+                            alert = 'alert-danger';
+                        }
+                        $('#alertNotif').html('<div class="alert ' + alert + ' alert-dismissible show" role="alert"><span>' + e.output.message + '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        dataTable.ajax.reload();
 
-                                }).fail(function(e) {
-                                    console.log('gagal');
-                                    console.log(e);
-                                    var message = 'Terjadi Kesalahan. #JSMUT02';
-                                    $('#alertNotif').html('<div class="alert alert-danger alert-dismissible show" role="alert"><span>' + message + '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                                }).always(function() {
-                                    console.log('selesai');
-                                });
-                            }
-                            // return false;
-                        });
-
-                        // Button Hapus
-                        $('body').on('click', '.tombolHapus', function() {
-                            var kode_barang = $(this).data('kode_barang');
-                            var nama_barang = $(this).data('nama_barang');
-                            var c = confirm('Apakah anda yakin akan menghapus Barang: "' + nama_barang + '" ?');
-                            if (c == true) {
-                                $.ajax({
-                                    url: 'page/ajax/ajax.php',
-                                    dataType: 'json',
-                                    method: 'POST',
-                                    data: {
-                                        aksi: 'hapusBarang',
-                                        data: {
-                                            kode_barang: kode_barang,
-                                            nama_barang: nama_barang
-                                        }
-                                    }
-                                }).done(function(e) {
-                                    console.log('berhasil');
-                                    console.log(e);
-                                    var alert = '';
-                                    if (!e.output.error) {
-                                        alert = 'alert-success';
-                                    } else {
-                                        alert = 'alert-danger';
-                                    }
-                                    $('#alertNotif').html('<div class="alert ' + alert + ' alert-dismissible show" role="alert"><span>' + e.output.message + '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                                    dataTable.ajax.reload();
-
-                                }).fail(function(e) {
-                                    console.log('gagal');
-                                    console.log(e);
-                                    var message = 'Terjadi Kesalahan. #JSMUT03';
-                                    $('#alertNotif').html('<div class="alert alert-danger alert-dismissible show" role="alert"><span>' + message + '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                                }).always(function() {
-                                    console.log('selesai');
-                                });
-                            }
-                            return false;
-                        });
-
+                    }).fail(function(e) {
+                        console.log('gagal');
+                        console.log(e);
+                        var message = 'Terjadi Kesalahan. #JSMUT02';
+                        $('#alertNotif').html('<div class="alert alert-danger alert-dismissible show" role="alert"><span>' + message + '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    }).always(function() {
+                        console.log('selesai');
                     });
+                }
+                // return false;
+            });
+
+            // Button Hapus
+            $('body').on('click', '.tombolHapus', function() {
+                var kode_barang = $(this).data('kode_barang');
+                var nama_barang = $(this).data('nama_barang');
+                var c = confirm('Apakah anda yakin akan menghapus Barang: "' + nama_barang + '" ?');
+                if (c == true) {
+                    $.ajax({
+                        url: 'page/ajax/ajax.php',
+                        dataType: 'json',
+                        method: 'POST',
+                        data: {
+                            aksi: 'hapusBarang',
+                            data: {
+                                kode_barang: kode_barang,
+                                nama_barang: nama_barang
+                            }
+                        }
+                    }).done(function(e) {
+                        console.log('berhasil');
+                        console.log(e);
+                        var alert = '';
+                        if (!e.output.error) {
+                            alert = 'alert-success';
+                        } else {
+                            alert = 'alert-danger';
+                        }
+                        $('#alertNotif').html('<div class="alert ' + alert + ' alert-dismissible show" role="alert"><span>' + e.output.message + '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        dataTable.ajax.reload();
+
+                    }).fail(function(e) {
+                        console.log('gagal');
+                        console.log(e);
+                        var message = 'Terjadi Kesalahan. #JSMUT03';
+                        $('#alertNotif').html('<div class="alert alert-danger alert-dismissible show" role="alert"><span>' + message + '</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    }).always(function() {
+                        console.log('selesai');
+                    });
+                }
+                return false;
+            });
+
+        });
     </script>

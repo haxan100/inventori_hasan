@@ -18,7 +18,7 @@
         'tanggal_masuk',
         'nama_satuan',
         'jumlah_masuk',
-        // 'nama_user',
+        'tbm.kode_barang',
     );
 
     $columnsFront = array(
@@ -67,7 +67,7 @@
 
     $sql .= " ORDER BY {$sortColumn} {$sortDir}";
 
-    // var_dump($sql);
+    // // var_dump($sql);
     // echo $sql;
     $count = $database->query($sql);
     // hitung semua data
@@ -117,6 +117,7 @@
         data-nama_barang="'.$row['nama_barang'].'" 
         data-kode_barang_masuk="'.$row['kode_barang_masuk']. '" data-jenis_barang="' . $row['jenis_barang'] . '" data-jumlah_masuk="' . $row['jumlah_masuk'] . '" 
         data-satuan="' . $row['nama_satuan'] . '"
+        data-kode_barang="' . $row['kode_barang'] . '"
         data-rak="' . $row['nama_rak'] . '"">
 
             <i class="glyphicon glyphicon-pencil"></i> EDIT
