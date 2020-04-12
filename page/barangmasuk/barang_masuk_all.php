@@ -364,7 +364,7 @@
 
             // Button Hapus
             $('body').on('click', '.tombolHapus', function() {
-                var kode_barang = $(this).data('kode_barang');
+                var kode_barang_masuk = $(this).data('kode_barang_masuk');
                 var nama_barang = $(this).data('nama_barang');
                 var c = confirm('Apakah anda yakin akan menghapus Barang: "' + nama_barang + '" ?');
                 if (c == true) {
@@ -373,9 +373,9 @@
                         dataType: 'json',
                         method: 'POST',
                         data: {
-                            aksi: 'hapusBarang',
+                            aksi: 'hapusBarangMasuk',
                             data: {
-                                kode_barang: kode_barang,
+                                kode_barang_masuk: kode_barang_masuk,
                                 nama_barang: nama_barang
                             }
                         }

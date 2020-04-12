@@ -440,13 +440,41 @@ if (
                     // var_dump($sql);die;  
                     if ($database->query($sql)) {
 
-                        $sql2 = "update tb_barang set stok = stok + '$jumlah_masuk' where kode_barang = '$kode_barang' ";
+                        $sql2 = "update tb_barang set stok = stok + '$jumlah_masuk' where kode_barang = '$nama_barang' ";
                         $database->query($sql2);
 
                         $error = false;
                         $msg = "Berhasil Mengubah Barang Masuk";
                     } else {
                         $msg = "Terjadi Kesalahan. #AJX06B <br>" . $database->error;
+                    }
+                }
+                break;
+            }
+
+        case 'hapusBarangMasuk': {
+
+                $kode_barang_masuk = freeInput($database, $_POST['data']['kode_barang_masuk']);
+                $nama_barang = freeInput($database, $_POST['data']['nama_barang']);
+
+                // var_dump($namaMitra);die;
+                $sql = "SELECT kode_barang FROM tb_barang_masuk WHERE kode_barang_masuk='$kode_barang_masuk'";
+
+                // var_dump($sql);die;
+                $data  = $database->query($sql)->num_rows;
+                // var_dump($data);die;
+                if ($data < 1) {
+                    $msg = "Nama Barang Masuk Tidak ada!";
+                } else {
+
+                    $sql = "DELETE From tb_barang_masuk where kode_barang_masuk='$kode_barang_masuk'";
+                    // var_dump($sql);die;  
+                    if ($database->query($sql)) {
+
+                        $error = false;
+                        $msg = "Berhasil Menghapus Barang Masuk</b>";
+                    } else {
+                        $msg = "Terjadi Kesalahan. #AJX06C <br>" . $database->error;
                     }
                 }
                 break;
