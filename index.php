@@ -171,6 +171,7 @@ if ($_SESSION['admin'] || $_SESSION['user']) {
               <li><a href="laporankeluar.php"><i class="fa fa-check-square-o"></i> <span>Laporan Barang Keluar</span></a></li>
               <li><a href="?page=barangmasukall"><i class="fa fa-stack-exchange"></i> <span>Barang Masuk All</span></a></li>
 
+              <li><a href="?page=barangkeluarall"><i class="fa fa-stack-exchange"></i> <span>Barang Keluar All</span></a></li>
 
             <?php } ?>
 
@@ -292,6 +293,8 @@ if ($_SESSION['admin'] || $_SESSION['user']) {
                     include "page/user/data_rak.php";
                   } elseif ($page == 'barangmasukall') {
                     include "page/barangmasuk/barang_masuk_all.php";
+                  } elseif ($page == 'barangkeluarall') {
+                    include "page/barangmasuk/barang_keluar_all.php";
                   }
 
 
