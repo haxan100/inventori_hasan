@@ -420,33 +420,33 @@ if (
             }
         case 'editBarangMasuk': {
 
-                $kode_barang = freeInput($database, $_POST['data']['kode_barang']);
-                $jumlah = freeInput($database, $_POST['data']['jumlah']);
+                $kode_barang_masuk = freeInput($database, $_POST['data']['kode_barang_masuk']);
+                $nama_barang = freeInput($database, $_POST['data']['nama_barang']);
+                $jumlah_masuk = freeInput($database, $_POST['data']['jumlah_masuk']);
 
-                $tanggal = date("Y-m-d");
-                // $_SESSION
-                $id = $_SESSION['admin'];
-                // var_dump($kode_barang);die;
-                // $sql = "SELECT no_rak FROM tb_rak WHERE nama_rak='$nama_rak'";
+                // var_dump($nama_barang);die;
+                $sql = "SELECT kode_barang_masuk FROM tb_barang_masuk WHERE kode_barang_masuk='$kode_barang_masuk'";
 
-                // // var_dump($_POST);die;
-                // $data  = $database->query($sql)->num_rows;
+                // var_dump($sql);die;
+                $data  = $database->query($sql)->num_rows;
                 // var_dump($data);die;
-
-                if ($kode_barang == '') {
-                    $msg = "Nama Barang Harap  Di Pilih!";
+                if ($data  > 1) {
+                    $msg = "Barang Tidak ada!";
                 } else {
-                    $sql = "INSERT INTO tb_barang_masuk(kode_barang_masuk, tanggal_masuk,kode_barang,jumlah_masuk,kode_user) VALUES(NULL, '$$tanggal','$kode_barang','$jumlah','$id')";
+
+                    $sql = "UPDATE tb_barang_masuk SET 
+                                    kode_barang='$nama_barang' ,jumlah_masuk='$jumlah_masuk'
+                                    WHERE kode_barang_masuk='$kode_barang_masuk'";
                     // var_dump($sql);die;  
                     if ($database->query($sql)) {
-                        $sql2 = "update tb_barang set stok = stok + '$jumlah' where kode_barang = '$kode_barang' ";
+
+                        $sql2 = "update tb_barang set stok = stok + '$jumlah_masuk' where kode_barang = '$kode_barang' ";
                         $database->query($sql2);
 
-
                         $error = false;
-                        $msg = "Berhasil menambahkan Barang Masuk: ";
+                        $msg = "Berhasil Mengubah Barang Masuk";
                     } else {
-                        $msg = "Terjadi Kesalahan. #AJX06A <br>" . $database->error;
+                        $msg = "Terjadi Kesalahan. #AJX06B <br>" . $database->error;
                     }
                 }
                 break;

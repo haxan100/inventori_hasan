@@ -16,8 +16,8 @@
                                             <th>Kode Barang Masuk</th>
                                              <th>Nama Barang</th>
                                             <th>Jenis Barang</th>
-                                               <th>No. Rak</th>
-                                                  <th>Tanggal</th>
+                                             <th>No. Rak</th>
+                                            <th>Tanggal</th>
                                             <th>Satuan</th>
                                             <th>Jumlah</th>
                                          <th>Nama User</th>
