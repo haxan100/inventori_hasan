@@ -397,12 +397,12 @@ if (
 
                 // // var_dump($_POST);die;
                 // $data  = $database->query($sql)->num_rows;
-                // var_dump($data);die;
+                // var_dump($tanggal);die;
               
                     if ($kode_barang == '') {
                         $msg = "Nama Barang Harap  Di Pilih!";
                     } else {
-                        $sql = "INSERT INTO tb_barang_masuk(kode_barang_masuk, tanggal_masuk,kode_barang,jumlah_masuk,kode_user) VALUES(NULL, '$$tanggal','$kode_barang','$jumlah','$id')";
+                        $sql = "INSERT INTO tb_barang_masuk(kode_barang_masuk, tanggal_masuk,kode_barang,jumlah_masuk,kode_user) VALUES(NULL, '$tanggal','$kode_barang','$jumlah','$id')";
                         // var_dump($sql);die;  
                         if ($database->query($sql)) {
                             $sql2="update tb_barang set stok = stok + '$jumlah' where kode_barang = '$kode_barang' ";

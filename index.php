@@ -60,7 +60,7 @@ if ($_SESSION['admin'] || $_SESSION['user']) {
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="index.php?" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>W</b>eb</span>
           <!-- logo for regular state and mobile devices -->
@@ -290,8 +290,8 @@ if ($_SESSION['admin'] || $_SESSION['user']) {
                   } elseif ($page == 'rak') {
 
                     include "page/user/data_rak.php";
-                  } elseif ($page == 'barangmasukall') {                  
-                      include "page/barangmasuk/barang_masuk_all.php";
+                  } elseif ($page == 'barangmasukall') {
+                    include "page/barangmasuk/barang_masuk_all.php";
                   }
 
 
