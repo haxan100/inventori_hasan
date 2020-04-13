@@ -507,6 +507,66 @@ if (
                 }
                 break;
             }
+        case 'hapusBarangKeluar': {
+
+                $kode_barang_keluar = freeInput($database, $_POST['data']['kode_barang_keluar']);
+                $nama_barang = freeInput($database, $_POST['data']['nama_barang']);
+
+                // var_dump($kode_barang_keluar);die;
+                $sql = "SELECT kode_barang FROM tb_barang_keluar WHERE kode_barang_keluar='$kode_barang_keluar'";
+
+                // var_dump($sql);die;
+                $data  = $database->query($sql)->num_rows;
+                // var_dump($data);die;
+                if ($data < 1) {
+                    $msg = "Nama Barang Keluar Tidak ada!";
+                } else {
+
+                    $sql = "DELETE From tb_barang_keluar where kode_barang_keluar='$kode_barang_keluar'";
+                    // var_dump($sql);die;  
+                    if ($database->query($sql)) {
+
+                        $error = false;
+                        $msg = "Berhasil Menghapus Barang Keluar</b>";
+                    } else {
+                        $msg = "Terjadi Kesalahan. #AJX07B <br>" . $database->error;
+                    }
+                }
+                break;
+            }
+        case 'editBarangKeluar': {
+
+                $kode_barang_keluar = freeInput($database, $_POST['data']['kode_barang_keluar']);
+                $nama_barang = freeInput($database, $_POST['data']['nama_barang']);
+                $jumlah_keluar = freeInput($database, $_POST['data']['jumlah_keluar']);
+
+                // var_dump($nama_barang);die;
+                $sql = "SELECT kode_barang_keluar FROM tb_barang_keluar WHERE kode_barang_keluar='$kode_barang_keluar'";
+
+                // var_dump($sql);die;
+                $data  = $database->query($sql)->num_rows;
+                // var_dump($data);die;
+                if ($data  > 1) {
+                    $msg = "Barang Tidak ada!";
+                } else {
+
+                    $sql = "UPDATE tb_barang_keluar SET 
+                                    kode_barang='$nama_barang' ,jumlah_keluar='$jumlah_keluar'
+                                    WHERE kode_barang_keluar='$kode_barang_keluar'";
+                    // var_dump($sql);die;  
+                    if ($database->query($sql)) {
+
+                        $sql2 = "update tb_barang set stok = stok + '$jumlah_keluar' where kode_barang = '$nama_barang' ";
+                        $database->query($sql2);
+
+                        $error = false;
+                        $msg = "Berhasil Mengubah Barang Keluar";
+                    } else {
+                        $msg = "Terjadi Kesalahan. #AJX06B <br>" . $database->error;
+                    }
+                }
+                break;
+            }
 
 
 

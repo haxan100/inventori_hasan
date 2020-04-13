@@ -293,15 +293,15 @@
             // Button Edit
             $('body').on('click', '.tombolEdit', function() {
 
-                var kode_barang_masuk = $(this).data('kode_barang_masuk');
+                var kode_barang_keluar = $(this).data('kode_barang_keluar');
                 var nama_barang = $(this).data('nama_barang_masuk');
-                var jumlah_masuk = $(this).data('jumlah_masuk');
+                var jumlah_keluar = $(this).data('jumlah_keluar');
                 var kode_barang = $(this).data('kode_barang');
                 console.log(kode_barang);
                 // return (false);
-                $('#nama_barang_masuk').val(kode_barang);
-                $('#inputEditJumlah').val(jumlah_masuk);
-                $('#KodeBarangMasuk').val(kode_barang_masuk);
+                $('#nama_barang_keluar').val(kode_barang);
+                $('#inputEditJumlah').val(jumlah_keluar);
+                $('#KodeBarangKeluar').val(kode_barang_keluar);
                 // $('#inputEditStok').val(stok);
                 $('#modalEditMitra').modal('show');
                 return false;
@@ -311,27 +311,27 @@
             // Button Edit Mitra
             $('#editMitra').on('click', function() {
                 var kode_barang_keluar = $('#KodeBarangKeluar').val();
-                var nama_barang = $('#nama_barang_masuk').val();
+                var nama_barang = $('#nama_barang_keluar').val();
                 var jumlah_keluar = $('#inputEditJumlah').val();
 
                 // console.log(jumlah_keluar);
                 // return (false);
                 if (jumlah_keluar == '') {
-                    $('*[for="inputEditBarang"] > small').html('Harap diisi!');
+                    $('*[for="inputEditJumlah"] > small').html('Harap diisi!');
                 }
                 if (nama_barang == 'default') {
-                    $('*[for="EditSatuan"] > small').html('Harap dipilih!');
+                    $('*[for="inputNamaBarang"] > small').html('Harap dipilih!');
                 } else {
                     $.ajax({
                         url: 'page/ajax/ajax.php',
                         dataType: 'json',
                         method: 'POST',
                         data: {
-                            aksi: 'editBarangMasuk',
+                            aksi: 'editBarangKeluar',
                             data: {
-                                kode_barang_masuk: kode_barang_masuk,
+                                kode_barang_keluar: kode_barang_keluar,
                                 nama_barang: nama_barang,
-                                jumlah_masuk: jumlah_masuk,
+                                jumlah_keluar: jumlah_keluar,
                             }
                         }
                     }).done(function(e) {
@@ -364,18 +364,19 @@
 
             // Button Hapus
             $('body').on('click', '.tombolHapus', function() {
-                var kode_barang_masuk = $(this).data('kode_barang_masuk');
+                var kode_barang_keluar = $(this).data('kode_barang_keluar');
                 var nama_barang = $(this).data('nama_barang');
                 var c = confirm('Apakah anda yakin akan menghapus Barang: "' + nama_barang + '" ?');
+                // console.log(kode_barang_keluar);return(false);
                 if (c == true) {
                     $.ajax({
                         url: 'page/ajax/ajax.php',
                         dataType: 'json',
                         method: 'POST',
                         data: {
-                            aksi: 'hapusBarangMasuk',
+                            aksi: 'hapusBarangKeluar',
                             data: {
-                                kode_barang_masuk: kode_barang_masuk,
+                                kode_barang_keluar: kode_barang_keluar,
                                 nama_barang: nama_barang
                             }
                         }

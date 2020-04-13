@@ -178,8 +178,6 @@ if ($_SESSION['admin'] || $_SESSION['user']) {
 
             <!-- <li><a href="?page=barang"><i class="fa fa-map"></i> <span>Data Barang</span></a></li>
             <li><a href="?page=user"><i class="fa fa-user"></i> <span>Data User</span></a></li> -->
-            <li><a href="?page=barangmasuk"><i class="fa fa-book"></i> <span>Barang Masuk</span></a></li>
-            <li><a href="?page=barangkeluar"><i class="fa fa-book"></i> <span>Barang Keluar</span></a></li>
 
 
 
@@ -209,51 +207,7 @@ if ($_SESSION['admin'] || $_SESSION['user']) {
 
 
 
-                  if ($page == 'user') {
-                    if ($aksi == "") {
-
-                      include "page/user/user.php";
-                    } elseif ($aksi == "tambah") {
-                      include "page/user/tambah.php";
-                    } elseif ($aksi == "ubah") {
-                      include "page/user/ubah.php";
-                    } elseif ($aksi == "hapus") {
-                      include "page/user/hapus.php";
-                    }
-                  } elseif ($page == 'barang') {
-                    if ($aksi == "") {
-
-                      include "page/barang/barang.php";
-                    } elseif ($aksi == "tambah") {
-                      include "page/barang/tambah.php";
-                    } elseif ($aksi == "ubah") {
-                      include "page/barang/ubah.php";
-                    } elseif ($aksi == "hapus") {
-                      include "page/barang/hapus.php";
-                    }
-                  } elseif ($page == 'barangmasuk') {
-                    if ($aksi == "") {
-
-                      include "page/barangmasuk/barangmasuk.php";
-                    } elseif ($aksi == "tambah") {
-                      include "page/barangmasuk/tambah.php";
-                    } elseif ($aksi == "ubah") {
-                      include "page/barangmasuk/ubah.php";
-                    } elseif ($aksi == "hapus") {
-                      include "page/barangmasuk/hapus.php";
-                    }
-                  } elseif ($page == 'barangkeluar') {
-                    if ($aksi == "") {
-
-                      include "page/barangkeluar/barangkeluar.php";
-                    } elseif ($aksi == "tambah") {
-                      include "page/barangkeluar/tambah.php";
-                    } elseif ($aksi == "ubah") {
-                      include "page/barangkeluar/ubah.php";
-                    } elseif ($aksi == "hapus") {
-                      include "page/barangkeluar/hapus.php";
-                    }
-                  } elseif ($page == 'Rak') {
+                  if ($page == 'Rak') {
                     if ($aksi == "") {
 
                       include "page/barangkeluar/Rak.php";
@@ -275,13 +229,7 @@ if ($_SESSION['admin'] || $_SESSION['user']) {
                     if ($aksi == "") {
 
                       include "page/user/userall.php";
-                    } elseif ($aksi == "tambah") {
-                      include "page/barangkeluar/tambah.php";
-                    } elseif ($aksi == "ubah") {
-                      include "page/barangkeluar/ubah.php";
-                    } elseif ($aksi == "hapus") {
-                      include "page/barangkeluar/hapus.php";
-                    }
+                    } 
                   } elseif ($page == 'barangAll') {
 
                     include "page/user/data_barang_all.php";
